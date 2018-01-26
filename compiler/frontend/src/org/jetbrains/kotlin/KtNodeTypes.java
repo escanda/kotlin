@@ -156,6 +156,8 @@ public interface KtNodeTypes {
 
     KtNodeType COLLECTION_LITERAL_EXPRESSION = new KtNodeType("COLLECTION_LITERAL_EXPRESSION", KtCollectionLiteralExpression.class);
 
+    KtNodeType DOUBLEHASH                = new KtNodeType("DHASH", KtDoubleHash.class);
+
     IElementType PACKAGE_DIRECTIVE = KtStubElementTypes.PACKAGE_DIRECTIVE;
 
     IElementType SCRIPT = KtStubElementTypes.SCRIPT;

@@ -421,6 +421,12 @@ public class BytecodeTextTestGenerated extends AbstractBytecodeTextTest {
         doTest(fileName);
     }
 
+    @TestMetadata("Printer.kt")
+    public void testDoubleHash() throws Exception {
+        String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/codegen/bytecodeText/printer.kt");
+        doTest(fileName);
+    }
+
     @TestMetadata("compiler/testData/codegen/bytecodeText/argumentOrder")
     @TestDataPath("$PROJECT_ROOT")
     @RunWith(JUnit3RunnerWithInners.class)

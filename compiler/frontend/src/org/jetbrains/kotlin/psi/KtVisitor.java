@@ -178,7 +178,8 @@ public class KtVisitor<R, D> extends PsiElementVisitor {
         return visitKtElement(argument, data);
     }
 
-    public R visitExpression(@NotNull KtExpression expression, D data) {
+    public R
+    visitExpression(@NotNull KtExpression expression, D data) {
         return visitKtElement(expression, data);
     }
 
@@ -452,5 +453,9 @@ public class KtVisitor<R, D> extends PsiElementVisitor {
 
     public R visitPackageDirective(@NotNull KtPackageDirective directive, D data) {
         return visitKtElement(directive, data);
+    }
+
+    public R visitDoubleHash(KtDoubleHash hash, D data) {
+        return visitExpression(hash.getBaseExpression(), data);
     }
 }

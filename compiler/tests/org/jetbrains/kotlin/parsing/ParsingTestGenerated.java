@@ -843,6 +843,12 @@ public class ParsingTestGenerated extends AbstractParsingTest {
             doParsingTest(fileName);
         }
 
+        @TestMetadata("Printer.kt")
+        public void testPrinter() throws Exception {
+            String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/psi/Printer.kt");
+            doParsingTest(fileName);
+        }
+
         @TestMetadata("compiler/testData/psi/annotation")
         @TestDataPath("$PROJECT_ROOT")
         @RunWith(JUnit3RunnerWithInners.class)

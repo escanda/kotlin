@@ -62,4 +62,9 @@ public class CodegenStatementVisitor extends KtVisitor<StackValue, StackValue> {
         assert baseExpression != null : "Label expression should have base one: " + expression.getText();
         return baseExpression.accept(this, receiver);
     }
+
+    @Override
+    public StackValue visitDoubleHash(KtDoubleHash hash, StackValue data) {
+        return codegen.generateDoubleHash(hash, data);
+    }
 }

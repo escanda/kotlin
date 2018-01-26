@@ -129,6 +129,7 @@ public interface KtTokens {
     KtSingleValueToken MINUSEQ     = new KtSingleValueToken("MINUSEQ", "-=");
     KtKeywordToken NOT_IN      = KtKeywordToken.keyword("NOT_IN", "!in");
     KtKeywordToken NOT_IS      = KtKeywordToken.keyword("NOT_IS", "!is");
+    KtSingleValueToken DOUBLEHASH_KEYWORD  = new KtSingleValueToken("DHASH", "##");
     KtSingleValueToken HASH        = new KtSingleValueToken("HASH", "#");
     KtSingleValueToken AT          = new KtSingleValueToken("AT", "@");
 

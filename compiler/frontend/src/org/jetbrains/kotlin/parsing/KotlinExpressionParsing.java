@@ -126,7 +126,8 @@ public class KotlinExpressionParsing extends AbstractKotlinParsing {
                     VAL_KEYWORD, VAR_KEYWORD,
                     INTERFACE_KEYWORD,
                     CLASS_KEYWORD,
-                    TYPE_ALIAS_KEYWORD
+                    TYPE_ALIAS_KEYWORD,
+                    DOUBLEHASH_KEYWORD
             ),
             MODIFIER_KEYWORDS
     );
@@ -688,6 +689,18 @@ public class KotlinExpressionParsing extends AbstractKotlinParsing {
         }
 
         return ok;
+    }
+
+    private void parseDoubleHash() {
+        assert _at(KtTokens.DOUBLEHASH_KEYWORD);
+
+        PsiBuilder.Marker followingExpression = mark();
+
+        advance(); // DOUBLEHASH
+
+        parseExpression();
+
+        followingExpression.done(KtNodeTypes.DOUBLEHASH);
     }
 
     /*
@@ -1298,10 +1311,12 @@ public class KotlinExpressionParsing extends AbstractKotlinParsing {
      */
     private void parseStatement(boolean isScriptTopLevel) {
         if (!parseLocalDeclaration(/* rollbackIfDefinitelyNotExpression = */false, /* isScriptTopLevel = */ isScriptTopLevel)) {
-            if (!atSet(EXPRESSION_FIRST)) {
+            if (at(DOUBLEHASH_KEYWORD)) {
+                parseDoubleHash();
+            } else if (!atSet(EXPRESSION_FIRST)) {
                 errorAndAdvance("Expecting a statement");
             }
-            else if (isScriptTopLevel){
+            else if (isScriptTopLevel) {
                 PsiBuilder.Marker scriptInitializer = mark();
                 parseBlockLevelExpression();
                 scriptInitializer.done(SCRIPT_INITIALIZER);

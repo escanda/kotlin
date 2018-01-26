@@ -420,4 +420,9 @@ public class ExpressionTypingVisitorForStatements extends ExpressionTypingVisito
     public KotlinTypeInfo visitLabeledExpression(@NotNull KtLabeledExpression expression, ExpressionTypingContext context) {
         return basic.visitLabeledExpression(expression, context, true);
     }
+
+    @Override
+    public KotlinTypeInfo visitDoubleHash(KtDoubleHash hash, ExpressionTypingContext context) {
+        return visitExpression(hash.getBaseExpression(), context);
+    }
 }

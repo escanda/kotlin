@@ -316,6 +316,7 @@ LONELY_BACKTICK=`
 ";"          { return KtTokens.SEMICOLON ; }
 "="          { return KtTokens.EQ        ; }
 ","          { return KtTokens.COMMA     ; }
+"##"         { return KtTokens.DOUBLEHASH_KEYWORD; }
 "#"          { return KtTokens.HASH      ; }
 "@"          { return KtTokens.AT        ; }
 

@@ -441,6 +441,10 @@ public class KtVisitorVoid extends KtVisitor<Void, Void> {
         super.visitPackageDirective(directive, null);
     }
 
+    public void visitDoubleHash(@NotNull  KtDoubleHash hash) {
+        super.visitDoubleHash(hash, null);
+    }
+
     // hidden methods
     @Override
     public final Void visitKtElement(@NotNull KtElement element, Void data) {
@@ -1059,6 +1063,12 @@ public class KtVisitorVoid extends KtVisitor<Void, Void> {
     @Override
     public Void visitClassInitializer(@NotNull KtClassInitializer initializer, Void data) {
         visitClassInitializer(initializer);
+        return null;
+    }
+
+    @Override
+    public Void visitDoubleHash(KtDoubleHash hash, Void data) {
+        visitDoubleHash(hash);
         return null;
     }
 }

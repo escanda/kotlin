@@ -99,6 +99,7 @@ import org.jetbrains.org.objectweb.asm.Type;
 import org.jetbrains.org.objectweb.asm.commons.InstructionAdapter;
 import org.jetbrains.org.objectweb.asm.commons.Method;
 
+import java.io.PrintStream;
 import java.util.*;
 
 import static org.jetbrains.kotlin.builtins.KotlinBuiltIns.isInt;
@@ -4204,6 +4205,24 @@ The "returned" value of try expression with no finally is either the last expres
     public StackValue visitIsExpression(@NotNull KtIsExpression expression, StackValue receiver) {
         StackValue match = StackValue.expression(OBJECT_TYPE, expression.getLeftHandSide(), this);
         return generateIsCheck(match, expression.getTypeReference(), expression.isNegated());
+    }
+
+    public StackValue generateDoubleHash(KtDoubleHash hash, StackValue data) {
+        return StackValue.operation(Type.VOID_TYPE, v -> {
+            gen(hash.getBaseExpression(), Type.getType(String.class));
+            v.store(1, Type.getType(String.class));
+            v.getstatic("java/lang/System", "out", "Ljava/io/PrintStream;");
+            final java.lang.reflect.Method printlnMethod;
+            try {
+                printlnMethod = PrintStream.class.getDeclaredMethod("println", String.class);
+            } catch (NoSuchMethodException e) {
+                throw new IllegalStateException(e);
+            }
+            v.load(1, Type.getType(String.class));
+            String methodDescriptor = Type.getMethodDescriptor(printlnMethod);
+            v.invokevirtual("java/io/PrintStream", "println", methodDescriptor, false);
+            return null;
+        });
     }
 
     private StackValue generateExpressionMatch(StackValue expressionToMatch, KtExpression subjectExpression, KtExpression patternExpression) {
